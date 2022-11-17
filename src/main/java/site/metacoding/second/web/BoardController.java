@@ -5,14 +5,16 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.second.dto.req.BoardReqDto.BoardSaveReqDto;
-import site.metacoding.second.dto.resp.ResponseDto;
+import site.metacoding.second.dto.resp.BoardRespDto.BoardDetailRespDto;
 import site.metacoding.second.dto.resp.BoardRespDto.BoardListRespDto;
 import site.metacoding.second.dto.resp.BoardRespDto.BoardSaveRespDto;
+import site.metacoding.second.dto.resp.ResponseDto;
 import site.metacoding.second.service.BoardService;
 
 @RequiredArgsConstructor
@@ -31,6 +33,12 @@ public class BoardController {
   public ResponseDto<?> findAll() {
     List<BoardListRespDto> boardListRespDtoList = boardService.findAll();
     return new ResponseDto<>(1, "게시글 목록", boardListRespDtoList);
+  }
+
+  @GetMapping("/board/{boardId}")
+  public ResponseDto<?> findById(@PathVariable Integer boardId) {
+    BoardDetailRespDto boardDetailRespDto = boardService.findById(boardId);
+    return new ResponseDto<>(1, "게시글 상세보기", boardDetailRespDto);
   }
 
 }

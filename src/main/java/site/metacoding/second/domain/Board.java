@@ -18,13 +18,13 @@ import lombok.Setter;
 public class Board {
   @Id // primary key
   @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
-  private Long boardId;
+  private Integer boardId;
   private String title;
   @Column(length = 1000)
   private String content;
 
   @Builder
-  public Board(Long boardId, String title, String content) {
+  public Board(Integer boardId, String title, String content) {
     this.boardId = boardId;
     this.title = title;
     this.content = content;

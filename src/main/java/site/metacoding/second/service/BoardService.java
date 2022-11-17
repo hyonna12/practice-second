@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.second.domain.Board;
 import site.metacoding.second.domain.BoardRepository;
 import site.metacoding.second.dto.req.BoardReqDto.BoardSaveReqDto;
+import site.metacoding.second.dto.resp.BoardRespDto.BoardDetailRespDto;
 import site.metacoding.second.dto.resp.BoardRespDto.BoardListRespDto;
 import site.metacoding.second.dto.resp.BoardRespDto.BoardSaveRespDto;
 
@@ -35,6 +36,13 @@ public class BoardService {
       boardListRespDtoList.add(new BoardListRespDto(board));
     }
     return boardListRespDtoList;
+  }
+
+  @Transactional
+  public BoardDetailRespDto findById(Integer boardId) {
+    Board boardPS = boardRepository.findById(boardId);
+    BoardDetailRespDto boardDetailRespDto = new BoardDetailRespDto(boardPS);
+    return boardDetailRespDto;
   }
 
 }

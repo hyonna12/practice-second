@@ -9,7 +9,7 @@ public class BoardRespDto {
   @Setter
   @Getter
   public static class BoardSaveRespDto {
-    Long boardId;
+    Integer boardId;
     String title;
 
     public BoardSaveRespDto(Board board) {
@@ -21,10 +21,22 @@ public class BoardRespDto {
   @Setter
   @Getter
   public static class BoardListRespDto {
-    Long boardId;
+    Integer boardId;
     String title;
 
     public BoardListRespDto(Board board) {
+      this.boardId = board.getBoardId();
+      this.title = board.getTitle();
+    }
+  }
+
+  @Setter
+  @Getter
+  public static class BoardDetailRespDto {
+    Integer boardId;
+    String title;
+
+    public BoardDetailRespDto(Board board) {
       this.boardId = board.getBoardId();
       this.title = board.getTitle();
     }
