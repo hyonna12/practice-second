@@ -1,6 +1,5 @@
 package site.metacoding.second.dto.req;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import site.metacoding.second.domain.Board;
