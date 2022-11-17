@@ -41,4 +41,16 @@ public class BoardRespDto {
       this.title = board.getTitle();
     }
   }
+
+  @Setter
+  @Getter
+  public static class BoardUpdateRespDto {
+    Integer boardId;
+    String title;
+
+    public BoardUpdateRespDto(Board board) {
+      this.boardId = board.getBoardId();
+      this.title = board.getTitle();
+    }
+  }
 }

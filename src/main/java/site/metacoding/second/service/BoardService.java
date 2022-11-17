@@ -11,9 +11,11 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.second.domain.Board;
 import site.metacoding.second.domain.BoardRepository;
 import site.metacoding.second.dto.req.BoardReqDto.BoardSaveReqDto;
+import site.metacoding.second.dto.req.BoardReqDto.BoardUpdateReqDto;
 import site.metacoding.second.dto.resp.BoardRespDto.BoardDetailRespDto;
 import site.metacoding.second.dto.resp.BoardRespDto.BoardListRespDto;
 import site.metacoding.second.dto.resp.BoardRespDto.BoardSaveRespDto;
+import site.metacoding.second.dto.resp.BoardRespDto.BoardUpdateRespDto;
 
 @RequiredArgsConstructor
 @Service
@@ -43,6 +45,13 @@ public class BoardService {
     Board boardPS = boardRepository.findById(boardId);
     BoardDetailRespDto boardDetailRespDto = new BoardDetailRespDto(boardPS);
     return boardDetailRespDto;
+  }
+
+  @Transactional
+  public BoardUpdateRespDto update(BoardUpdateReqDto boardUpdateReqDto) {
+    Board boardPS = boardRepository.save(boardUpdateReqDto.toEntity());
+    BoardUpdateRespDto boardUpdateRespDto = new BoardUpdateRespDto(boardPS);
+    return boardUpdateRespDto;
   }
 
 }

@@ -15,6 +15,16 @@ public class BoardReqDto {
     public Board toEntity() {
       return Board.builder().title(title).content(content).build();
     }
+  }
 
+  @Setter
+  @Getter
+  public static class BoardUpdateReqDto {
+    String title;
+    String content;
+
+    public Board toEntity() {
+      return Board.builder().title(title).content(content).build();
+    }
   }
 }
