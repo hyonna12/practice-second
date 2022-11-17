@@ -22,14 +22,14 @@ public class BoardRepository {
   }
 
   public List<Board> findAll() {
-    List<Board> boardList = em.createQuery("select b from Board", Board.class)
+    List<Board> boardList = em.createQuery("select b from Board b", Board.class)
         .getResultList();
 
     return boardList;
   }
 
   public Board findById(Integer boardId) {
-    Board boardPS = em.createQuery("select b from Board where b.boardId =:boardId", Board.class)
+    Board boardPS = em.createQuery("select b from Board b where b.boardId =:boardId", Board.class)
         .setParameter("boardId", boardId)
         .getSingleResult();
 

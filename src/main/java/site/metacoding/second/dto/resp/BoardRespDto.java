@@ -16,6 +16,17 @@ public class BoardRespDto {
       this.boardId = board.getBoardId();
       this.title = board.getTitle();
     }
+  }
 
+  @Setter
+  @Getter
+  public static class BoardListRespDto {
+    Long boardId;
+    String title;
+
+    public BoardListRespDto(Board board) {
+      this.boardId = board.getBoardId();
+      this.title = board.getTitle();
+    }
   }
 }
