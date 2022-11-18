@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.second.domain.Board;
 import site.metacoding.second.domain.BoardRepository;
-import site.metacoding.second.dto.req.BoardReqDto.BoardSaveReqDto;
-import site.metacoding.second.dto.req.BoardReqDto.BoardUpdateReqDto;
-import site.metacoding.second.dto.resp.BoardRespDto.BoardDetailRespDto;
-import site.metacoding.second.dto.resp.BoardRespDto.BoardListRespDto;
-import site.metacoding.second.dto.resp.BoardRespDto.BoardSaveRespDto;
-import site.metacoding.second.dto.resp.BoardRespDto.BoardUpdateRespDto;
+import site.metacoding.second.dto.req.board.BoardReqDto.BoardSaveReqDto;
+import site.metacoding.second.dto.req.board.BoardReqDto.BoardUpdateReqDto;
+import site.metacoding.second.dto.resp.board.BoardRespDto.BoardDetailRespDto;
+import site.metacoding.second.dto.resp.board.BoardRespDto.BoardListRespDto;
+import site.metacoding.second.dto.resp.board.BoardRespDto.BoardSaveRespDto;
+import site.metacoding.second.dto.resp.board.BoardRespDto.BoardUpdateRespDto;
 
 @RequiredArgsConstructor
 @Service

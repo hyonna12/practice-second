@@ -1,4 +1,4 @@
-package site.metacoding.second.dto.resp;
+package site.metacoding.second.dto.resp.board;
 
 import lombok.Getter;
 import lombok.Setter;

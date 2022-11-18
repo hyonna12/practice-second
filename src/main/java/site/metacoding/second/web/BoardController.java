@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import site.metacoding.second.dto.req.BoardReqDto.BoardSaveReqDto;
-import site.metacoding.second.dto.req.BoardReqDto.BoardUpdateReqDto;
-import site.metacoding.second.dto.resp.BoardRespDto.BoardDetailRespDto;
-import site.metacoding.second.dto.resp.BoardRespDto.BoardListRespDto;
-import site.metacoding.second.dto.resp.BoardRespDto.BoardSaveRespDto;
-import site.metacoding.second.dto.resp.BoardRespDto.BoardUpdateRespDto;
+import site.metacoding.second.dto.req.board.BoardReqDto.BoardSaveReqDto;
+import site.metacoding.second.dto.req.board.BoardReqDto.BoardUpdateReqDto;
 import site.metacoding.second.dto.resp.ResponseDto;
+import site.metacoding.second.dto.resp.board.BoardRespDto.BoardDetailRespDto;
+import site.metacoding.second.dto.resp.board.BoardRespDto.BoardListRespDto;
+import site.metacoding.second.dto.resp.board.BoardRespDto.BoardSaveRespDto;
+import site.metacoding.second.dto.resp.board.BoardRespDto.BoardUpdateRespDto;
 import site.metacoding.second.service.BoardService;
 
 @RequiredArgsConstructor

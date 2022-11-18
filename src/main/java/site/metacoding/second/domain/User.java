@@ -6,9 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Setter
 @Getter
 @Entity
@@ -21,4 +24,13 @@ public class User {
   String password;
   @Column(unique = true)
   String email;
+
+  @Builder
+  public User(Integer userId, String username, String password, String email) {
+    this.userId = userId;
+    this.username = username;
+    this.password = password;
+    this.email = email;
+  }
+
 }
