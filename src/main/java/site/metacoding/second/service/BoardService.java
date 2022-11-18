@@ -2,6 +2,7 @@ package site.metacoding.second.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -42,24 +43,40 @@ public class BoardService {
 
   @Transactional
   public BoardDetailRespDto findById(Integer boardId) {
-    Board boardPS = boardRepository.findById(boardId);
-    BoardDetailRespDto boardDetailRespDto = new BoardDetailRespDto(boardPS);
-    return boardDetailRespDto;
+    Optional<Board> boardOP = boardRepository.findById(boardId);
+    if (boardOP.isPresent()) {
+      BoardDetailRespDto boardDetailRespDto = new BoardDetailRespDto(boardOP.get());
+      return boardDetailRespDto;
+    } else {
+      throw new RuntimeException("해당 " + boardId + " 로 상세보기를 할 수 없습니다.");
+    }
+
   }
 
   @Transactional
-  public BoardUpdateRespDto update(Integer boardId, BoardUpdateReqDto boardUpdateReqDto) {
-    Board boardPS = boardRepository.findById(boardId);
+  public BoardUpdateRespDto update(BoardUpdateReqDto boardUpdateReqDto) {
+    Optional<Board> boardOP = boardRepository.findById(boardUpdateReqDto.getBoardId());
     // JPA 의 영속성 컨텍스트 덕분에 entity 객체의 값만 변경하면 자동으로 변경사항 반영
-    // 따라서 repository.update 를 쓰지 않아도 됨.
-    boardPS.update(boardUpdateReqDto.getTitle(), boardUpdateReqDto.getContent());
-    BoardUpdateRespDto boardUpdateRespDto = new BoardUpdateRespDto(boardPS);
-    return boardUpdateRespDto;
+    if (boardOP.isPresent()) {
+      Board boardPS = boardOP.get();
+      boardPS.update(boardUpdateReqDto.getTitle(), boardUpdateReqDto.getContent());
+      BoardUpdateRespDto boardUpdateRespDto = new BoardUpdateRespDto(boardPS);
+      return boardUpdateRespDto;
+    } else {
+      throw new RuntimeException("해당 " + boardUpdateReqDto.getBoardId() + " 로 수정할 수 없습니다.");
+    }
+
   }
 
   @Transactional
   public void delete(Integer boardId) {
-    boardRepository.deleteById(boardId);
+    Optional<Board> boardOP = boardRepository.findById(boardId);
+    if (boardOP.isPresent()) {
+      boardRepository.deleteById(boardId);
+    } else {
+      throw new RuntimeException("해당 " + boardId + " 로 삭제할 수 없습니다.");
+    }
+
   }
 
 }
