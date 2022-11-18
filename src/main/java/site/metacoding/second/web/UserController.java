@@ -2,6 +2,7 @@ package site.metacoding.second.web;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +34,12 @@ public class UserController {
     session.setAttribute("userPrincipal", sessionUser);
     session.setMaxInactiveInterval(60 * 60);
     return new ResponseDto<>(1, "로그인", sessionUser);
+  }
+
+  @GetMapping("/logout")
+  public ResponseDto<?> logout() {
+    session.invalidate();
+    return new ResponseDto<>(1, "로그아웃", null);
   }
 
   // @GetMapping("/board")

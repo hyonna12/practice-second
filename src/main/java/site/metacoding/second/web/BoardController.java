@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import site.metacoding.second.domain.UserRepository;
 import site.metacoding.second.dto.req.board.BoardReqDto.BoardSaveReqDto;
 import site.metacoding.second.dto.req.board.BoardReqDto.BoardUpdateReqDto;
 import site.metacoding.second.dto.resp.ResponseDto;
@@ -53,6 +54,8 @@ public class BoardController {
 
   @PutMapping("/board/{boardId}")
   public ResponseDto<?> update(@PathVariable Integer boardId, @RequestBody BoardUpdateReqDto boardUpdateReqDto) {
+    SessionUser userPrincipal = (SessionUser) session.getAttribute("userPrincipal");
+    boardUpdateReqDto.setSessionUser(userPrincipal);
     boardUpdateReqDto.setBoardId(boardId);
     BoardUpdateRespDto boardUpdateRespDto = boardService.update(boardUpdateReqDto);
     return new ResponseDto<>(1, "게시글 수정", boardUpdateRespDto);
@@ -60,7 +63,12 @@ public class BoardController {
 
   @DeleteMapping("/board/{boardId}")
   public ResponseDto<?> delete(@PathVariable Integer boardId) {
-    boardService.delete(boardId);
+    SessionUser userPrincipal = (SessionUser) session.getAttribute("userPrincipal");
+    if (userPrincipal != null) {
+      boardService.delete(boardId);
+    } else {
+      throw new RuntimeException("로그인이 되어있지 않습니다.");
+    }
     return new ResponseDto<>(1, "게시글 삭제", null);
   }
 

@@ -26,10 +26,10 @@ public class BoardReqDto {
     private Integer boardId; // 서비스 로직
     private String title;
     private String content;
-    private User user;
+    private SessionUser sessionUser;
 
     public Board toEntity() {
-      return Board.builder().boardId(boardId).title(title).content(content).user(user).build();
+      return Board.builder().boardId(boardId).title(title).content(content).user(sessionUser.toEntity()).build();
     }
   }
 }

@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import site.metacoding.second.domain.Board;
 import site.metacoding.second.domain.User;
-import site.metacoding.second.dto.resp.SessionUser;
 
 public class BoardRespDto {
 
@@ -39,10 +38,24 @@ public class BoardRespDto {
   public static class BoardListRespDto {
     private Integer boardId;
     private String title;
+    private UserDto user;
+
+    @Setter
+    @Getter
+    public static class UserDto {
+      private Integer userId;
+      private String username;
+
+      public UserDto(User user) {
+        this.userId = user.getUserId();
+        this.username = user.getUsername();
+      }
+    }
 
     public BoardListRespDto(Board board) {
       this.boardId = board.getBoardId();
       this.title = board.getTitle();
+      this.user = new UserDto(board.getUser());
     }
   }
 
@@ -51,10 +64,24 @@ public class BoardRespDto {
   public static class BoardDetailRespDto {
     private Integer boardId;
     private String title;
+    private UserDto user;
+
+    @Setter
+    @Getter
+    public static class UserDto {
+      private Integer userId;
+      private String username;
+
+      public UserDto(User user) {
+        this.userId = user.getUserId();
+        this.username = user.getUsername();
+      }
+    }
 
     public BoardDetailRespDto(Board board) {
       this.boardId = board.getBoardId();
       this.title = board.getTitle();
+      this.user = new UserDto(board.getUser());
     }
   }
 
@@ -64,11 +91,25 @@ public class BoardRespDto {
     private Integer boardId;
     private String title;
     private String content;
+    private UserDto user;
+
+    @Setter
+    @Getter
+    public static class UserDto {
+      private Integer userId;
+      private String username;
+
+      public UserDto(User user) {
+        this.userId = user.getUserId();
+        this.username = user.getUsername();
+      }
+    }
 
     public BoardUpdateRespDto(Board board) {
       this.boardId = board.getBoardId();
       this.title = board.getTitle();
       this.content = board.getContent();
+      this.user = new UserDto(board.getUser());
     }
   }
 }
