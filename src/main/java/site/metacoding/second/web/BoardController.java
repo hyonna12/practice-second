@@ -2,6 +2,8 @@ package site.metacoding.second.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import site.metacoding.second.dto.req.board.BoardReqDto.BoardSaveReqDto;
 import site.metacoding.second.dto.req.board.BoardReqDto.BoardUpdateReqDto;
 import site.metacoding.second.dto.resp.ResponseDto;
+import site.metacoding.second.dto.resp.SessionUser;
 import site.metacoding.second.dto.resp.board.BoardRespDto.BoardDetailRespDto;
 import site.metacoding.second.dto.resp.board.BoardRespDto.BoardListRespDto;
 import site.metacoding.second.dto.resp.board.BoardRespDto.BoardSaveRespDto;
@@ -24,11 +27,15 @@ import site.metacoding.second.service.BoardService;
 @RestController
 public class BoardController {
 
-  final BoardService boardService;
+  private final BoardService boardService;
+  private final HttpSession session;
 
   @PostMapping("/board")
   public ResponseDto<?> save(@RequestBody BoardSaveReqDto boardSaveReqDto) {
+    SessionUser userPrincipal = (SessionUser) session.getAttribute("userPrincipal");
+    boardSaveReqDto.setSessionUser(userPrincipal);
     BoardSaveRespDto boardSaveRespDto = boardService.save(boardSaveReqDto);
+
     return new ResponseDto<>(1, "게시글 등록", boardSaveRespDto);
   }
 
