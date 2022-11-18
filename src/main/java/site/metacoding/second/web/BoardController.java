@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import site.metacoding.second.domain.UserRepository;
 import site.metacoding.second.dto.req.board.BoardReqDto.BoardSaveReqDto;
 import site.metacoding.second.dto.req.board.BoardReqDto.BoardUpdateReqDto;
 import site.metacoding.second.dto.resp.ResponseDto;
@@ -34,10 +33,13 @@ public class BoardController {
   @PostMapping("/board")
   public ResponseDto<?> save(@RequestBody BoardSaveReqDto boardSaveReqDto) {
     SessionUser userPrincipal = (SessionUser) session.getAttribute("userPrincipal");
-    boardSaveReqDto.setSessionUser(userPrincipal);
-    BoardSaveRespDto boardSaveRespDto = boardService.save(boardSaveReqDto);
-
-    return new ResponseDto<>(1, "게시글 등록", boardSaveRespDto);
+    if (userPrincipal != null) {
+      boardSaveReqDto.setSessionUser(userPrincipal);
+      BoardSaveRespDto boardSaveRespDto = boardService.save(boardSaveReqDto);
+      return new ResponseDto<>(1, "게시글 등록", boardSaveRespDto);
+    } else {
+      throw new RuntimeException("로그인이 되어있지 않습니다.");
+    }
   }
 
   @GetMapping("/board")
@@ -55,21 +57,25 @@ public class BoardController {
   @PutMapping("/board/{boardId}")
   public ResponseDto<?> update(@PathVariable Integer boardId, @RequestBody BoardUpdateReqDto boardUpdateReqDto) {
     SessionUser userPrincipal = (SessionUser) session.getAttribute("userPrincipal");
-    boardUpdateReqDto.setSessionUser(userPrincipal);
-    boardUpdateReqDto.setBoardId(boardId);
-    BoardUpdateRespDto boardUpdateRespDto = boardService.update(boardUpdateReqDto);
-    return new ResponseDto<>(1, "게시글 수정", boardUpdateRespDto);
+    if (userPrincipal != null) {
+      boardUpdateReqDto.setSessionUser(userPrincipal);
+      boardUpdateReqDto.setBoardId(boardId);
+      BoardUpdateRespDto boardUpdateRespDto = boardService.update(boardUpdateReqDto);
+      return new ResponseDto<>(1, "게시글 수정", boardUpdateRespDto);
+    } else {
+      throw new RuntimeException("로그인이 되어있지 않습니다.");
+    }
   }
 
   @DeleteMapping("/board/{boardId}")
   public ResponseDto<?> delete(@PathVariable Integer boardId) {
     SessionUser userPrincipal = (SessionUser) session.getAttribute("userPrincipal");
     if (userPrincipal != null) {
-      boardService.delete(boardId);
+      boardService.delete(boardId, userPrincipal);
+      return new ResponseDto<>(1, "게시글 삭제", null);
     } else {
       throw new RuntimeException("로그인이 되어있지 않습니다.");
     }
-    return new ResponseDto<>(1, "게시글 삭제", null);
   }
 
 }

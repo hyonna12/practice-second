@@ -13,6 +13,7 @@ import site.metacoding.second.domain.Board;
 import site.metacoding.second.domain.BoardRepository;
 import site.metacoding.second.dto.req.board.BoardReqDto.BoardSaveReqDto;
 import site.metacoding.second.dto.req.board.BoardReqDto.BoardUpdateReqDto;
+import site.metacoding.second.dto.resp.SessionUser;
 import site.metacoding.second.dto.resp.board.BoardRespDto.BoardDetailRespDto;
 import site.metacoding.second.dto.resp.board.BoardRespDto.BoardListRespDto;
 import site.metacoding.second.dto.resp.board.BoardRespDto.BoardSaveRespDto;
@@ -50,14 +51,14 @@ public class BoardService {
     } else {
       throw new RuntimeException("해당 " + boardId + " 로 상세보기를 할 수 없습니다.");
     }
-
   }
 
   @Transactional
   public BoardUpdateRespDto update(BoardUpdateReqDto boardUpdateReqDto) {
     Optional<Board> boardOP = boardRepository.findById(boardUpdateReqDto.getBoardId());
     // JPA 의 영속성 컨텍스트 덕분에 entity 객체의 값만 변경하면 자동으로 변경사항 반영
-    if (boardOP.isPresent()) {
+    if (boardOP.isPresent()
+        && boardOP.get().getUser().getUserId().equals(boardUpdateReqDto.getSessionUser().getUserId())) {
       Board boardPS = boardOP.get();
       boardPS.update(boardUpdateReqDto.getTitle(), boardUpdateReqDto.getContent());
       BoardUpdateRespDto boardUpdateRespDto = new BoardUpdateRespDto(boardPS);
@@ -65,18 +66,16 @@ public class BoardService {
     } else {
       throw new RuntimeException("해당 " + boardUpdateReqDto.getBoardId() + " 로 수정할 수 없습니다.");
     }
-
   }
 
   @Transactional
-  public void delete(Integer boardId) {
+  public void delete(Integer boardId, SessionUser userPrincipal) {
     Optional<Board> boardOP = boardRepository.findById(boardId);
-    if (boardOP.isPresent()) {
+    if (boardOP.isPresent() && boardOP.get().getUser().getUserId().equals(userPrincipal.getUserId())) {
       boardRepository.deleteById(boardId);
     } else {
       throw new RuntimeException("해당 " + boardId + " 로 삭제할 수 없습니다.");
     }
-
   }
 
 }
