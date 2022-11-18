@@ -18,12 +18,12 @@ import lombok.Setter;
 public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Id
-  Integer userId;
+  private Integer userId;
   @Column(unique = true)
-  String username;
-  String password;
+  private String username;
+  private String password;
   @Column(unique = true)
-  String email;
+  private String email;
 
   @Builder
   public User(Integer userId, String username, String password, String email) {

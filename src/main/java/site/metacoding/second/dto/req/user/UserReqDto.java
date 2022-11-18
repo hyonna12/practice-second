@@ -9,9 +9,9 @@ public class UserReqDto {
   @Setter
   @Getter
   public static class UserJoinReqDto {
-    String username;
-    String password;
-    String email;
+    private String username;
+    private String password;
+    private String email;
 
     public User toEntity() {
       return User.builder()
@@ -23,8 +23,8 @@ public class UserReqDto {
   @Setter
   @Getter
   public static class UserLoginReqDto {
-    String username;
-    String password;
+    private String username;
+    private String password;
 
     public User toEntity() {
       return User.builder()

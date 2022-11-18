@@ -9,8 +9,8 @@ public class BoardRespDto {
   @Setter
   @Getter
   public static class BoardSaveRespDto {
-    Integer boardId;
-    String title;
+    private Integer boardId;
+    private String title;
 
     public BoardSaveRespDto(Board board) {
       this.boardId = board.getBoardId();
@@ -21,8 +21,8 @@ public class BoardRespDto {
   @Setter
   @Getter
   public static class BoardListRespDto {
-    Integer boardId;
-    String title;
+    private Integer boardId;
+    private String title;
 
     public BoardListRespDto(Board board) {
       this.boardId = board.getBoardId();
@@ -33,8 +33,8 @@ public class BoardRespDto {
   @Setter
   @Getter
   public static class BoardDetailRespDto {
-    Integer boardId;
-    String title;
+    private Integer boardId;
+    private String title;
 
     public BoardDetailRespDto(Board board) {
       this.boardId = board.getBoardId();
@@ -45,9 +45,9 @@ public class BoardRespDto {
   @Setter
   @Getter
   public static class BoardUpdateRespDto {
-    Integer boardId;
-    String title;
-    String content;
+    private Integer boardId;
+    private String title;
+    private String content;
 
     public BoardUpdateRespDto(Board board) {
       this.boardId = board.getBoardId();

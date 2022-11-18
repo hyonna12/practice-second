@@ -7,8 +7,8 @@ import site.metacoding.second.domain.User;
 @Setter
 @Getter
 public class SessionUser {
-  Integer userId;
-  String username;
+  private Integer userId;
+  private String username;
 
   public SessionUser(User user) {
     this.userId = user.getUserId();

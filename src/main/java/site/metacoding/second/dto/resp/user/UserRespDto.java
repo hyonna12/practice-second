@@ -9,9 +9,9 @@ public class UserRespDto {
   @Setter
   @Getter
   public static class UserJoinRespDto {
-    String username;
-    String password;
-    String email;
+    private String username;
+    private String password;
+    private String email;
 
     public UserJoinRespDto(User user) {
       this.username = user.getUsername();

@@ -8,8 +8,8 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ResponseDto<T> {
-  Integer code;
-  String msg;
-  T data;
+  private Integer code;
+  private String msg;
+  private T data;
 
 }
