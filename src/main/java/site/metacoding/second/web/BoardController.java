@@ -2,6 +2,7 @@ package site.metacoding.second.web;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,8 +47,13 @@ public class BoardController {
   @PutMapping("/board/{boardId}")
   public ResponseDto<?> update(@PathVariable Integer boardId, @RequestBody BoardUpdateReqDto boardUpdateReqDto) {
     BoardUpdateRespDto boardUpdateRespDto = boardService.update(boardId, boardUpdateReqDto);
-
     return new ResponseDto<>(1, "게시글 수정", boardUpdateRespDto);
+  }
+
+  @DeleteMapping("/board/{boardId}")
+  public ResponseDto<?> delete(@PathVariable Integer boardId) {
+    boardService.delete(boardId);
+    return new ResponseDto<>(1, "게시글 삭제", null);
   }
 
 }

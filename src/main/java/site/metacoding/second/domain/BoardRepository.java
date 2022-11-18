@@ -38,4 +38,10 @@ public class BoardRepository {
     return boardPS;
   }
 
+  public void deleteById(Integer boardId) {
+    em.createQuery("delete from Board b where b.boardId = :boardId")
+        .setParameter("boardId", boardId)
+        .executeUpdate();
+  }
+
 }
