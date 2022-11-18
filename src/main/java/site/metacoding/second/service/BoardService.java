@@ -48,8 +48,11 @@ public class BoardService {
   }
 
   @Transactional
-  public BoardUpdateRespDto update(BoardUpdateReqDto boardUpdateReqDto) {
-    Board boardPS = boardRepository.save(boardUpdateReqDto.toEntity());
+  public BoardUpdateRespDto update(Integer boardId, BoardUpdateReqDto boardUpdateReqDto) {
+    Board boardPS = boardRepository.findById(boardId);
+    // JPA 의 영속성 컨텍스트 덕분에 entity 객체의 값만 변경하면 자동으로 변경사항 반영
+    // 따라서 repository.update 를 쓰지 않아도 됨.
+    boardPS.update(boardUpdateReqDto.getTitle(), boardUpdateReqDto.getContent());
     BoardUpdateRespDto boardUpdateRespDto = new BoardUpdateRespDto(boardPS);
     return boardUpdateRespDto;
   }

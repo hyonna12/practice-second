@@ -47,10 +47,12 @@ public class BoardRespDto {
   public static class BoardUpdateRespDto {
     Integer boardId;
     String title;
+    String content;
 
     public BoardUpdateRespDto(Board board) {
       this.boardId = board.getBoardId();
       this.title = board.getTitle();
+      this.content = board.getContent();
     }
   }
 }

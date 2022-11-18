@@ -43,9 +43,10 @@ public class BoardController {
     return new ResponseDto<>(1, "게시글 상세보기", boardDetailRespDto);
   }
 
-  @PutMapping("/board/{id}")
-  public ResponseDto<?> update(@RequestBody BoardUpdateReqDto boardUpdateReqDto) {
-    BoardUpdateRespDto boardUpdateRespDto = boardService.update(boardUpdateReqDto);
+  @PutMapping("/board/{boardId}")
+  public ResponseDto<?> update(@PathVariable Integer boardId, @RequestBody BoardUpdateReqDto boardUpdateReqDto) {
+    BoardUpdateRespDto boardUpdateRespDto = boardService.update(boardId, boardUpdateReqDto);
+
     return new ResponseDto<>(1, "게시글 수정", boardUpdateRespDto);
   }
 
